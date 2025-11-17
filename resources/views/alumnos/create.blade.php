@@ -1,0 +1,95 @@
+@extends('layouts.app')
+@section('title', 'Registrar Alumno')
+
+@section('content')
+
+<div class="max-w-4xl mx-auto p-8 rounded-xl shadow-2xl bg-dark-card border border-neon-cyan/30">
+<!-- Título Principal -->
+<h1 class="text-3xl sm:text-4xl font-display font-bold text-neon-cyan mb-8 border-b-2 border-neon-cyan/50 pb-2"
+style="text-shadow: 0 0 10px rgba(0, 255, 255, 0.4);">
+<i class="fas fa-user-plus mr-3"></i> Registrar Nuevo Alumno
+</h1>
+
+{{-- Manejo de Errores --}}
+@if ($errors->any())
+    <div class="p-4 mb-4 text-sm font-medium rounded-lg bg-red-900 text-red-300 border border-red-700/50">
+        <ul class="list-disc list-inside space-y-1">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+<form action="{{ route('alumnos.store') }}" method="POST" class="space-y-6">
+    @csrf
+    
+    {{-- Datos de Acceso --}}
+    <h2 class="text-xl font-semibold text-neon-purple mt-6 mb-4 border-b border-gray-600 pb-1"
+         style="text-shadow: 0 0 5px rgba(200, 0, 255, 0.3);">
+        Datos de Acceso
+    </h2>
+    
+    {{-- Campo Nombre Completo --}}
+    <div class="space-y-2">
+        <label for="name" class="block text-sm font-medium text-gray-400">Nombre Completo</label>
+        <input type="text" id="name" name="name" value="{{ old('name') }}" required
+            class="w-full px-4 py-3 bg-dark-bg border border-gray-700/50 rounded-lg text-gray-200 placeholder-gray-500 focus:ring-neon-blue focus:border-neon-blue transition duration-300"
+            placeholder="Ej: John Doe">
+    </div>
+
+    {{-- Campo Email (Usuario) --}}
+    <div class="space-y-2">
+        <label for="email" class="block text-sm font-medium text-gray-400">Email (Usuario)</label>
+        <input type="email" id="email" name="email" value="{{ old('email') }}" required
+            class="w-full px-4 py-3 bg-dark-bg border border-gray-700/50 rounded-lg text-gray-200 placeholder-gray-500 focus:ring-neon-blue focus:border-neon-blue transition duration-300"
+            placeholder="ejemplo@sig-academico.edu">
+    </div>
+
+    {{-- Campo Contraseña --}}
+    <div class="space-y-2">
+        <label for="password" class="block text-sm font-medium text-gray-400">Contraseña</label>
+        <input type="password" id="password" name="password" required
+            class="w-full px-4 py-3 bg-dark-bg border border-gray-700/50 rounded-lg text-gray-200 placeholder-gray-500 focus:ring-neon-blue focus:border-neon-blue transition duration-300"
+            placeholder="Mínimo 8 caracteres">
+    </div>
+
+    {{-- Datos del Alumno --}}
+    <h2 class="text-xl font-semibold text-neon-cyan mt-8 mb-4 border-b border-gray-600 pb-1"
+         style="text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);">
+        Datos del Alumno
+    </h2>
+
+    {{-- Campo Código Único --}}
+    <div class="space-y-2">
+        <label for="codigo" class="block text-sm font-medium text-gray-400">Código Único</label>
+        <input type="text" id="codigo" name="codigo" value="{{ old('codigo') }}" required
+            class="w-full px-4 py-3 bg-dark-bg border border-gray-700/50 rounded-lg text-gray-200 placeholder-gray-500 focus:ring-neon-blue focus:border-neon-blue transition duration-300"
+            placeholder="Ej: A20241023">
+    </div>
+
+    {{-- Campo Fecha de Nacimiento --}}
+    <div class="space-y-2">
+        <label for="fecha_nacimiento" class="block text-sm font-medium text-gray-400">Fecha de Nacimiento</label>
+        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="{{ old('fecha_nacimiento') }}" required
+            class="w-full px-4 py-3 bg-dark-bg border border-gray-700/50 rounded-lg text-gray-200 placeholder-gray-500 focus:ring-neon-blue focus:border-neon-blue transition duration-300">
+    </div>
+
+    {{-- Botones de Acción --}}
+    <div class="flex space-x-4 pt-4">
+        <button type="submit" 
+            class="flex-1 px-6 py-3 text-lg font-bold rounded-xl bg-neon-green text-dark-bg hover:bg-neon-green/80 transition duration-300 shadow-lg 
+                   hover:shadow-[0_0_15px_rgba(57,255,20,0.8)] focus:outline-none focus:ring-4 focus:ring-neon-green/50">
+            <i class="fas fa-save mr-2"></i> Guardar Alumno
+        </button>
+        <a href="{{ route('alumnos.index') }}" 
+            class="flex-1 text-center px-6 py-3 text-lg font-bold rounded-xl bg-gray-700 text-gray-200 hover:bg-gray-600 transition duration-300 shadow-lg 
+                   hover:shadow-[0_0_10px_rgba(100,100,100,0.5)] focus:outline-none focus:ring-4 focus:ring-gray-500/50">
+            <i class="fas fa-times-circle mr-2"></i> Cancelar
+        </a>
+    </div>
+</form>
+
+
+</div>
+@endsection
